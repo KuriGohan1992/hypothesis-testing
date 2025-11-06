@@ -34,6 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const calculate = document.getElementById('calculate');
+
+    const reset = document.getElementById('reset');
+
+    reset.addEventListener('click', () => {
+        document.querySelectorAll('input').forEach(element => {
+            element.value = '=';
+        });
+        alternative_hypothesis.innerHTML = `μ ${get_alternative_operator(operator.value)} ${null_hypothesis_value.value}`;
+    });
     
     calculate.addEventListener('click', () => {
         const sample_mean = parseFloat(document.getElementById('sample_mean').value);
