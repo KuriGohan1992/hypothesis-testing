@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <Title>Hypothesis Testing</Title>
+        <script src="https://cdn.jsdelivr.net/npm/jstat@latest/dist/jstat.min.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <label for="null_hypothesis_input">Null Hypothesis</label>
+        <div id="null_hypothesis_input">
+            <div>
+                Relational Operator: 
+                <button type="button" class=operators id="equal">=</button>
+                <button type="button" class=operators id="greater_equal">≥</button>
+                <button type="button" class=operators id="less_equal">≤</button>
+            </div>
+            μ
+            <input type="text" id="operator" size="2" value ="=" readonly/>
+            <input type="number" id="null_hypothesis_value"/>
+        </div>
+        <label for="alternative_hypothesis">Alternative Hypothesis</label>
+        <div id="alternative_hypothesis">
+            μ ≠
+        </div>
+        <div>
+            <label for="sample_mean">Sample Mean (x̄): </label>
+            <input type="number" id="sample_mean"/><br>
+            <label for="sample_size">Sample Size (n): </label>
+            <input type="number" id="sample_size"/><br>
+            <label for="population_standard_deviation">Population Standard Deviation (σ): </label>
+            <input type="number" id="population_standard_deviation"/><br>
+        </div>
+
+        <div>
+            <br>
+            <label for="significance_level">Significance Level (α):</label>
+            <input type="number" id="significance_level" step="0.01" min="0" max="1">
+            <button type="button" class=alphas>0.05</button>
+            <button type="button" class=alphas>0.10</button>
+            <button type="button" class=alphas>0.01</button>
+        </div>
+
+        <div>
+            <br>
+            <button type="button" id="calculate">Calculate</button>
+        </div>
+        <div>
+            <h3 id="results"></h3>
+            <h4 id="zstatistic"></h4>
+            <h4 id="critical_value"></h4>
+            <h4 id="decision"></h4>
+        </div>
+        <div>
+            
+        </div>
+    </body>
+</html>
