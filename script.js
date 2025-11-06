@@ -25,22 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const null_hypothesis_value = (document.getElementById('null_hypothesis_value'));
     const alternative_hypothesis = document.getElementById('alternative_hypothesis');
 
-    const sample_mean = parseFloat(document.getElementById('sample_mean').value);
-    const sample_size = parseInt(document.getElementById('sample_size').value);
-    const population_standard_deviation = parseFloat(document.getElementById('population_standard_deviation').value);
-
-    const significance_level = document.getElementById('significance_level');
     
     button_click('alphas', significance_level);
     button_click('operators', operator);
-
+    
     null_hypothesis_value.oninput = () => {
         alternative_hypothesis.innerHTML = `μ ${get_alternative_operator(operator.value)} ${null_hypothesis_value.value}`
     }
-
+    
     const calculate = document.getElementById('calculate');
-
+    
     calculate.addEventListener('click', () => {
+        const sample_mean = parseFloat(document.getElementById('sample_mean').value);
+        const sample_size = parseInt(document.getElementById('sample_size').value);
+        const population_standard_deviation = parseFloat(document.getElementById('population_standard_deviation').value);
+    
+        const significance_level = document.getElementById('significance_level');
         const results = document.getElementById('results');
         const zstatistic = document.getElementById('zstatistic');
         const critical_value = document.getElementById('critical_value');
