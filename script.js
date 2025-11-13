@@ -8,7 +8,7 @@ function button_click(className, inputField) {
     }
 }
 
-function showGraphArea(tail, value) {
+function showGraphArea(tail, value, z) {
     const left = document.getElementById('leftangle');
     const right = document.getElementById('rightangle');
     
@@ -17,6 +17,13 @@ function showGraphArea(tail, value) {
     } else if (tail === 'right') {
         right.setAttribute('x', `${600 + value * 150}`)
     }
+
+    const line = document.getElementById('zline');
+    const z_text = document.getElementById('z');
+    console.log(z);
+    line.setAttribute('x1', `${z * 150 + 600}`)
+    line.setAttribute('x2', `${z * 150 + 600}`)
+    z_text.setAttribute('x', `${z * 150 + 593}`)
 }
 
 function get_alternative_operator(null_operator) {
@@ -54,7 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         showGraphArea('left', -4);
         showGraphArea('right', 4);
-        document.getElementById('results-container').innerHTML = '';
+        results.innerHTML = '';
+        zstatistic.innerHTML = '';        
+        critical_value.innerHTML = '';        
+        decision.innerHTML = '';
+
         alternative_hypothesis.innerHTML = `μ ${get_alternative_operator(operator.value)} ${null_hypothesis_value.value}`;
     });
     
@@ -78,20 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (operator.value === '=') {
             critical = jStat.normal.inv(1 - (alpha / 2), 0, 1);
-            showGraphArea('left', -critical);
-            showGraphArea('right', critical);
+            showGraphArea('left', -critical, z);
+            showGraphArea('right', critical, z);
             if (z <= -critical || z >= critical) {
                 reject = true;
             }
         } else if (operator.value === '≥') {
             critical = -jStat.normal.inv(1 - alpha, 0, 1);
-            showGraphArea('left', critical);
+            showGraphArea('left', critical, z);
             if (z <= critical) {
                 reject = true;
             }
         } else if (operator.value === '≤') {
             critical = jStat.normal.inv(1 - alpha, 0, 1);
-            showGraphArea('right', critical);
+            showGraphArea('right', critical, z);
             if (z >= critical) {
                 reject = true;
             }

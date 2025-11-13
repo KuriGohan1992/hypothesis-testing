@@ -3,6 +3,7 @@
 }
 
 #graph {
-    transform: scale(0.25);
+    transform: scale(0.3);
     transform-origin: top left;
+    border: solid 2px
 }
