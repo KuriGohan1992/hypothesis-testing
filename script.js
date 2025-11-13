@@ -8,6 +8,17 @@ function button_click(className, inputField) {
     }
 }
 
+function showGraphArea(tail, value) {
+    const left = document.getElementById('leftangle');
+    const right = document.getElementById('rightangle');
+    
+    if (tail === 'left') {
+        left.setAttribute('x', `${value * 150}`);
+    } else if (tail === 'right') {
+        right.setAttribute('x', `${600 + value * 150}`)
+    }
+}
+
 function get_alternative_operator(null_operator) {
     if (null_operator === '=') {
         return '≠';
@@ -41,6 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('input').forEach(element => {
             element.value = '=';
         });
+        showGraphArea('left', 0);
+        showGraphArea('right', 0);
         alternative_hypothesis.innerHTML = `μ ${get_alternative_operator(operator.value)} ${null_hypothesis_value.value}`;
     });
     
@@ -64,16 +77,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (operator.value === '=') {
             critical = jStat.normal.inv(1 - (alpha / 2), 0, 1);
-            if (z <= -1 * critical || z >= critical) {
+            showGraphArea('left', -critical);
+            showGraphArea('right', critical);
+            if (z <= -critical || z >= critical) {
                 reject = true;
             }
         } else if (operator.value === '≥') {
-            critical = jStat.normal.inv(1 - alpha, 0, 1);
-            if (z <= -1 * critical) {
+            critical = -jStat.normal.inv(1 - alpha, 0, 1);
+            showGraphArea('left', critical);
+            if (z <= critical) {
                 reject = true;
             }
         } else if (operator.value === '≤') {
             critical = jStat.normal.inv(1 - alpha, 0, 1);
+            showGraphArea('right', critical);
             if (z >= critical) {
                 reject = true;
             }
@@ -81,7 +98,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         results.innerHTML = 'Results: ';
         zstatistic.innerHTML = `Z-Statistic: ${z.toFixed(4)}`;
-        critical_value.innerHTML = `Critical Value: ${critical.toFixed(4)}`;
+        if (operator.value === '=') {            
+            critical_value.innerHTML = `Critical Value: ±${critical.toFixed(4)}`;
+        } else {
+            critical_value.innerHTML = `Critical Value: ${critical.toFixed(4)}`;
+        }
         if (reject === true) {
             decision.innerHTML = 'Decision: Reject Null Hypothesis';
         } else {

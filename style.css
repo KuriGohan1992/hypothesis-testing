@@ -1,3 +1,8 @@
 #operator {
     text-align: center;
 }
+
+#graph {
+    transform: scale(0.25);
+    transform-origin: top left;
+}
