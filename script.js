@@ -52,8 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('input').forEach(element => {
             element.value = '=';
         });
-        showGraphArea('left', 0);
-        showGraphArea('right', 0);
+        showGraphArea('left', -4);
+        showGraphArea('right', 4);
+        document.getElementById('results-container').innerHTML = '';
         alternative_hypothesis.innerHTML = `μ ${get_alternative_operator(operator.value)} ${null_hypothesis_value.value}`;
     });
     
